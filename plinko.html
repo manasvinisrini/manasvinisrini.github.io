@@ -1,11 +1,81 @@
 ---
 layout: page
-title: Generic
+title: Plinko
+subtitle: Northwestern University&#58; <a href="https://www.mccormick.northwestern.edu/mechanical/courses/descriptions/314-theory-of-machines-dynamics.html"target="_blank">Machine Dynamics</a>
 ---
-	<h3>Lorem ipsum dolor</h3>
-	<p>Morbi mattis mi consectetur tortor elementum, varius pellentesque velit convallis. Aenean tincidunt lectus auctor mauris maximus, ac scelerisque ipsum tempor. Duis vulputate ex et ex tincidunt, quis lacinia velit aliquet. Duis non efficitur nisi, id malesuada justo. Maecenas sagittis felis ac sagittis semper. Curabitur purus leo, tempus sed finibus eget, fringilla quis risus. Maecenas et lorem quis sem varius sagittis et a est. Maecenas iaculis iaculis sem. Donec vel dolor at arcu tincidunt bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ut aliquet justo. Donec id neque ipsum. Integer eget ultricies odio. Nam vel ex a orci fringilla tincidunt. Aliquam eleifend ligula non velit accumsan cursus. Etiam ut gravida sapien.</p>
-	<p>Vestibulum ultrices risus velit, sit amet blandit massa auctor sit amet. Sed eu lectus sem. Phasellus in odio at ipsum porttitor mollis id vel diam. Praesent sit amet posuere risus, eu faucibus lectus. Vivamus ex ligula, tempus pulvinar ipsum in, auctor porta quam. Proin nec dui cursus, posuere dui eget interdum. Fusce lectus magna, sagittis at facilisis vitae, pellentesque at etiam. Quisque posuere leo quis sem commodo, vel scelerisque nisi scelerisque. Suspendisse id quam vel tortor tincidunt suscipit. Nullam auctor orci eu dolor consectetur, interdum ullamcorper ante tincidunt. Mauris felis nec felis elementum varius.</p>
+	<h3>Technical Skills</h3>
+	<ul>
+		<li>Lagrangian Dynamics</li>
+		<li>Mathematica</li>
+		<li>Rigid-body Motion</li>
+		<li>External Forces</li>
+		<li>Constrained Dynamics</li>
+		<li>Impact Constraints</li>
+	</ul>
 	<hr />
-	<h4>Feugiat aliquam</h4>
-	<p>Nam sapien ante, varius in pulvinar vitae, rhoncus id massa. Donec varius ex in mauris ornare, eget euismod urna egestas. Etiam lacinia tempor ipsum, sodales porttitor justo. Aliquam dolor quam, semper in tortor eu, volutpat efficitur quam. Fusce nec fermentum nisl. Aenean erat diam, tempus aliquet erat.</p>
-	<p>Etiam iaculis nulla ipsum, et pharetra libero rhoncus ut. Phasellus rutrum cursus velit, eget condimentum nunc blandit vel. In at pulvinar lectus. Morbi diam ante, vulputate et imperdiet eget, fermentum non dolor. Ut eleifend sagittis tincidunt. Sed viverra commodo mi, ac rhoncus justo. Duis neque ligula, elementum ut enim vel, posuere finibus justo. Vivamus facilisis maximus nibh quis pulvinar. Quisque hendrerit in ipsum id tellus facilisis fermentum. Proin mauris dui, at vestibulum sit amet, auctor bibendum neque.</p>
+	<h3>Short Summary</h3>
+	<p>The objective of this project was to create a system using Euler-Lagrange equations that has more than two degrees of freedom, contains rotational inertia, includes impacts, and has external forces. The game (modeled after the <a href="https://www.youtube.com/watch?v=euKzeMPe-oM"target="_blank">Plinko game</a> from The Price is Right show) fulfills these requirements as an external force pushes the red square prism up a ramp against gravity. The force stops at the end of the ramp and the prism begins to freefall. As it does, it ricochets off the black pegs along with the green walls and floors. This causes it not only to translate in the plane but rotate as well. The equations describing the motion can be seen below.</p>
+	<p><b>Configuration Variables:</b>\(\quad q = \{x(t),y(t),\theta(t)\}\)<br /><br />
+	<b>Rotational Inertia:</b>\(\quad I = \frac{8}{3}h\ell w(\ell^2+w^2) \qquad \) <b>Ramp Constraint:</b> \(\quad y(t) - \frac{2}{3}x(t)-3 \)<br /><br />
+	<b>Kinetic Energy</b> = \( \frac{1}{2}m(\dot x^2+\dot y^2)+\frac{1}{2}I\dot\theta^2 \qquad \qquad \) <b>Potential Energy</b> = \( mgy(t) \qquad \qquad \) <b>Lagrangian</b> = \( KE-PE\)<br /><br />
+	</p>
+
+	<div class="row">
+		<div class="6u 12u$(medium)">
+			<h4> Pre-launch E-L Equations</h4>
+			<ul>
+				<li>\( \frac{d}{dt}(\frac{\partial}{\partial \dot x}) - \frac{\partial L}{\partial x} = \lambda \frac{\partial \phi}{\partial x} + F \cos \theta \)</li>
+				<br />
+				<li>\( \frac{d}{dt}(\frac{\partial}{\partial \dot y}) - \frac{\partial L}{\partial y} = \lambda \frac{\partial \phi}{\partial y} + F \sin \theta \)</li>
+				<br />
+				<li>\( \frac{d}{dt}(\frac{\partial}{\partial \dot \theta}) - \frac{\partial L}{\partial \theta} = \lambda \frac{\partial \phi}{\partial \theta} \)</li>
+			</ul>
+		</div>
+		<div class="6u$ 12u$(medium)">
+			<h4>Post-launch E-L Equations</h4>
+			<ul>
+				<li>\( \frac{d}{dt}(\frac{\partial}{\partial \dot x}) - \frac{\partial L}{\partial x} = 0 \)</li>
+				<br />
+				<li>\( \frac{d}{dt}(\frac{\partial}{\partial \dot y}) - \frac{\partial L}{\partial y} = 0 \)</li>
+				<br />
+				<li>\( \frac{d}{dt}(\frac{\partial}{\partial \dot \theta}) - \frac{\partial L}{\partial \theta} =0 \)</li>
+			</ul>
+		</div>
+	</div>
+
+	<h4>Impact Constraints</h4>
+	<p>
+	<b>Peg:</b> At any point in time, the position of the x &amp; y coordinates of each peg with respect to the body frame (square prism) is:
+	$$ \phi_x = x_{peg} \cos (\theta(t)) + y_{peg} \sin (\theta(t)) - \cos (\theta(t)) x(t) - \sin (\theta(t)) y(t) $$
+	$$ \phi_y = y_{peg} \cos (\theta(t)) - x_{peg} \sin (\theta(t)) + \sin (\theta(t)) x(t) - \cos (\theta(t)) y(t) $$
+	These equations were generated by multiplying the transformation matrix, \(T_{sb}^{-1}\), by the position vector of the peg \(r_{peg}\) and extracting the x and y parts of the resulting column vector.
+	$$ r_{peg} = \begin{bmatrix} x_{peg} & y_{peg} & 1 \end{bmatrix}^T \qquad T_{sb} = \begin{bmatrix} \cos \theta(t) & -\sin \theta(t) & x(t) \\ \sin \theta(t) & \cos \theta(t) & y(t) \\ 0 & 0 & 1 \end{bmatrix} \to Inverse \to $$
+	$$ T_{sb}^{-1} = \begin{bmatrix} \cos \theta(t) & \sin \theta(t) & -\cos (\theta(t)) x(t) -\sin (\theta(t)) y(t)\\ -\sin (\theta(t)) & \cos (\theta(t)) & \sin (\theta(t)) x(t) - \cos (\theta(t)) y(t) \\ 0 & 0 & 1 \end{bmatrix}$$
+	$$ r_{peg\;in\;body} = T_{sb}^{-1} \cdot r_{peg} = \begin{bmatrix} \phi_x & \phi_y & 1 \end{bmatrix} $$
+	In other words, when \(\phi_x\) and \(\phi_y\) equal zero, the centroid of the square prism would be completely overlapping the centroid of the peg. However, in order to evaluate the impact update laws (see below), the <i>edges</i> are what need to be detected. To account for this, both \(\phi_x\) and \(\phi_y\) are subtracted by half the width and length of the prism respectively along with the radius of the peg and set equal to zero.
+</p>
+	<p><b>Wall or Floor:</b> To determine if the prism is in collision with the wall or floor, the four corner points are used. As an example, the top right corner point of the prism in the world frame can be found by:
+	$$ r_{topRight} = T_{sb} \cdot r_{topRightInB}\qquad where \qquad r_{topRightInB} = \begin{bmatrix} \frac{\ell}{2} & \frac{w}{2} & 1 \end{bmatrix}^T $$
+	This results in \( \frac{\ell}{2}\cos(\theta(t))-\frac{w}{2}\sin(\theta(t)) + x(t) \) so when this equation equals the \(x\) location of the wall or the \(y\) location of the floor, the impact update law below is evaluated.
+	</p>
+
+	<h4>Impact Update Laws</h4>
+	<div class="row">
+		<div class="6u 12u$(medium)">
+			<ul>
+				<li>\( \frac{\partial L}{\partial \dot x}(\tau^+) - \frac{\partial L}{\partial \dot x}(\tau^-) = \lambda \frac{\partial \phi}{\partial x}\)</li>
+				<br />
+				<li>\( \frac{\partial L}{\partial \dot y}(\tau^+) - \frac{\partial L}{\partial \dot y}(\tau^-) = \lambda \frac{\partial \phi}{\partial y}\)</li>
+			</ul>
+		</div>
+		<div class="6u$ 12u$(medium)">
+			<ul>
+				<li>\( \frac{\partial L}{\partial \dot \theta}(\tau^+) - \frac{\partial L}{\partial \dot \theta}(\tau^-) = \lambda \frac{\partial \phi}{\partial \theta}\)</li>
+				<br />
+				<li>\( H(\tau^+) - H(\tau^-) = 0 \)
+			</ul>
+		</div>
+	</div>
+	<hr />
+	<h3>Demo Video</h3>
+	<img src="images/plinkoProject.gif">
