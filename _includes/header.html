@@ -8,9 +8,15 @@
         <div id="menu">
           <ul>
             <li><a href="index.html">Home</a></li>
+            {% if page.layout == 'landing' %}
             <li><a href="#projects" class="more scrolly">Projects</a></li>
             <li><a href="#about" class="more scrolly">About</a></li>
             <li><a href="#contact" class="more scrolly">Contact</a></li>
+            {% else %}
+            <li><a href="index.html#projects" class="more scrolly">Projects</a></li>
+            <li><a href="index.html#about" class="more scrolly">About</a></li>
+            <li><a href="index.html#contact" class="more scrolly">Contact</a></li>
+            {% endif %}
             <!-- {% for my_page in site.pages %}
             {% if my_page.title %}
             <li><a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a></li>
