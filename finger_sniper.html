@@ -1,11 +1,25 @@
 ---
 layout: page
-title: Generic
+title: Finger Sniper
+subtitle: Northwestern University&#58; <a href="http://www.mccormick.northwestern.edu/eecs/courses/descriptions/332.html"target="_blank">Introduction to Computer Vision</a>
 ---
-	<h3>Lorem ipsum dolor</h3>
-	<p>Morbi mattis mi consectetur tortor elementum, varius pellentesque velit convallis. Aenean tincidunt lectus auctor mauris maximus, ac scelerisque ipsum tempor. Duis vulputate ex et ex tincidunt, quis lacinia velit aliquet. Duis non efficitur nisi, id malesuada justo. Maecenas sagittis felis ac sagittis semper. Curabitur purus leo, tempus sed finibus eget, fringilla quis risus. Maecenas et lorem quis sem varius sagittis et a est. Maecenas iaculis iaculis sem. Donec vel dolor at arcu tincidunt bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ut aliquet justo. Donec id neque ipsum. Integer eget ultricies odio. Nam vel ex a orci fringilla tincidunt. Aliquam eleifend ligula non velit accumsan cursus. Etiam ut gravida sapien.</p>
-	<p>Vestibulum ultrices risus velit, sit amet blandit massa auctor sit amet. Sed eu lectus sem. Phasellus in odio at ipsum porttitor mollis id vel diam. Praesent sit amet posuere risus, eu faucibus lectus. Vivamus ex ligula, tempus pulvinar ipsum in, auctor porta quam. Proin nec dui cursus, posuere dui eget interdum. Fusce lectus magna, sagittis at facilisis vitae, pellentesque at etiam. Quisque posuere leo quis sem commodo, vel scelerisque nisi scelerisque. Suspendisse id quam vel tortor tincidunt suscipit. Nullam auctor orci eu dolor consectetur, interdum ullamcorper ante tincidunt. Mauris felis nec felis elementum varius.</p>
+	<h3>Technical Skills</h3>
+	<ul>
+		<li>Color Segmentation</li>
+		<li>Morphological Operations</li>
+		<li>Python</li>
+		<li>Game setup using the Pygame library</li>
+		<li>Gesture Detection</li>
+		<li>Image Processing &amp; Object Detection using the <a href="https://opencv.org"target="_blank">OpenCV</a> library</li>
+	</ul>
 	<hr />
-	<h4>Feugiat aliquam</h4>
-	<p>Nam sapien ante, varius in pulvinar vitae, rhoncus id massa. Donec varius ex in mauris ornare, eget euismod urna egestas. Etiam lacinia tempor ipsum, sodales porttitor justo. Aliquam dolor quam, semper in tortor eu, volutpat efficitur quam. Fusce nec fermentum nisl. Aenean erat diam, tempus aliquet erat.</p>
-	<p>Etiam iaculis nulla ipsum, et pharetra libero rhoncus ut. Phasellus rutrum cursus velit, eget condimentum nunc blandit vel. In at pulvinar lectus. Morbi diam ante, vulputate et imperdiet eget, fermentum non dolor. Ut eleifend sagittis tincidunt. Sed viverra commodo mi, ac rhoncus justo. Duis neque ligula, elementum ut enim vel, posuere finibus justo. Vivamus facilisis maximus nibh quis pulvinar. Quisque hendrerit in ipsum id tellus facilisis fermentum. Proin mauris dui, at vestibulum sit amet, auctor bibendum neque.</p>
+	<h3>Short Summary</h3>
+	<p>The main objective of this project was to develop an algorithm to locate and track the index fingertip and thumb tip accurately as well as to differentiate between the armed and shooting hand configurations.</p>
+	<p>For the first part of the objective, color segmentation was used in the HSV color-space to obtain a skin mask. To achieve this, the player orients their hand so that it completely fills a green box that appears at program startup. The pixel values within the box are then used to generate Hue (red) and Saturation (green) histograms like shown in the bottom left figure. In this particular case, a mask was created to allow all pixels with a hue between 158-180, a saturation between 35-62, and any Value to be depicted while blocking all other pixels. Then, to get rid of noise, a Gaussian blur was performed followed by erosion. Finally, the image was dilated twice to fill in any holes that might be in the hand. The resulting image can be seen in the figure on the bottom right.</p>
+	<p style="text-align:center;"><img src="images/combo.png" alt="comboPic" width = auto height = 300></p>
+	<p>For the second part of the objective, OpenCV's <i>cv2.findContours</i> and <i>cv2.convexHull</i> functions were used to find the exact outline of the hand (green in the demo) and the outer boundary of the hand (blue in the demo). With the first function, the centroid of the hand (blue circle) can be calculated. Then, the index fingertip and thumb tip can be tracked by iterating through the points that make up the convex hull and locating the one that is the furthest (index fingertip) and second furthest (thumb tip) from the centroid. By taking the ratio of the thumb tip to the centroid and the index fingertip to the centroid, it is possible to perform gesture detection. In the armed position, the ratio is larger than in the shooting position.</p>
+	<p> To learn more about the project, click <a href="https://github.com/swiz23/computer_vision"target="_blank">here</a> to see the GitHub repo and access the README.</p>
+	<hr />
+
+	<h3>Demo Video</h3>
+	<img src="images/fingerSniper.gif" alt="fingerSniper" width = auto height = 300>
