@@ -1,6 +1,6 @@
 ---
 layout: page
-title: youBot Control
+title: KUKA youBot Control
 subtitle: Northwestern University&#58; <a href="https://www.mccormick.northwestern.edu/mechanical/courses/descriptions/449-robotic-manipulation.html"target="_blank">Robotic Manipulation</a>
 ---
 	<h3>Technical Skills</h3>
@@ -8,17 +8,37 @@ subtitle: Northwestern University&#58; <a href="https://www.mccormick.northweste
 		<li>Python</li>
 		<li>Rigid-body motion</li>
 		<li>Forward &amp; Inverse Kinematics</li>
-		<li>Jacobians</li>
-		<li>Feedforward, PI Control</li>
+		<li>Jacobian/Velocity Kinematics</li>
+		<li>Trajectory Generation</li>
+		<li>Wheeled Mobile Robots/Odometry</li>
+		<li>Feedforward, PI Feedback Control</li>
 		<li><a href="http://www.coppeliarobotics.com"target="_blank">V-REP robot simulator</a></li>
 	</ul>
 	<hr />
 	<h3>Short Summary</h3>
-	<p>In the video below, Baxter begins the coffee making process by picking up the cup and placing it into the Keurig. Next, it raises the lid, picks up the K-cup, and places it inside. Finally, it closes the lid and removes the cup from the Keurig.</p>
-	<p>My contribution to the project involved programming Baxter to differentiate between the three items on the table. To do this, blue, yellow, and pink Post-it notes were placed by the cup, Keurig, and K-cup respectively. At program startup, Baxter raises its left arm (which has a camera at the end) to obtain a top-down view of the table. Using color segmentation, the centroid of each Post-it note is found in the camera frame and used to determine the relative order of the items. Next, I linked these items to their world frame equivalents (obtained from a teammate's code using AR tags) by comparing the world frame centroids and matching them to camera frame centroids accordingly.</p>
-	<p> To learn more about the project, click <a href="https://github.com/Laurenhut/ME495-final-project"target="_blank">here</a> to see the GitHub repo and access the README.</p>
+	<p>In total, this robot has eight degrees of freedom. Five of them are single-axis rotational joints on the arm itself while the other three describe the ability for the chassis to move in the \(x\) and \(y\) directions and rotate in the plane. In the problem, the initial positions of each of these joints are given. To move the end-effector back onto the path, a 5 second control loop was implemented with 0.01 second increments, where at each timestep:</p>
+	<ul>
+		<li>The current configuration of the end effector, <b>\(X\)</b> was determined using forward kinematics</li>
+		<li>The desired configuration, <b>\(X_d(s)\)</b>, and twist, <b>\(V_d(s)\)</b> of the end-effector was calculated using the cubic time scaling <b>\(s(t)\)</b>.</li>
+		<li>The error, <b>\(X_{err}\)</b>, between the current and desired configurations was calculated.</li>
+		<li>The control law below was evaluated to find what the commanded end-effector-frame twist should be. \(Ad\) represents the adjoint of a matrix and is used to change the frame of reference of the feedforward twist \(V_d\) from the desired end-effector configuration, \(X_d\) to the actual configuration, \(X\). $$ V(t) = [Ad_{X^{-1}X_d}]V_d(t) + K_p X_{err}(t)+K_i \int_0^t X_{err}(t)dt $$</li>
+		<li>The pseudeoinverse of the combined base and arm Jacobians was then calculated and multiplied by the commanded end_effector-frame twist to obtain the neccessary wheel and joint velocities.</li>
+		<li>The configuration at the next time step was simulated using odometry for the chassis and first-order Euler integration for the arm.</li>
+	</ul>
+	<p>At each time step, the configuration was saved to a csv file resulting in a file with 500 rows. The file was then input to the V-REP simulator so that the robot's movement could be visualized. Three different simulations were run with different initial conditions as is explained in the video demo below.</p>
+	<p></p>
 	<hr />
 
 	<h3>Demo Video</h3>
-	<!-- <iframe width="420" height="315" src=""></iframe> -->
-	<iframe src="https://player.vimeo.com/video/246536038" width="500" height="315" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+	<p>For the case below, the robot started off the path. A proportional gain of 5 and integral gain of 15 were used to bring it back onto the path in approximately 1.5 seconds.</p>
+	<img src="images/good PI.png" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 0.5em;">
+	<img src="images/youBot.gif" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 0.5em;">
+	<p style="clear: both;">
+	<p>For the case below, the robot started on the path. Only feedforward control was used. Additionally, the error was very small compared to the other cases.</p>
+	<img src="images/No PI.png" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 0.5em;">
+	<img src="images/noPI.gif" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 0.5em;">
+	<p style="clear: both;">
+	<p>For the case below, the robot started off the path. A proportional gain of 7 and integral gain of 200 were used to bring it back onto the path in approximately 1.1 seconds. As the integral gain was much higher than the proportional one, it was expected that there would be more oscillations.</p>
+	<img src="images/part_e_new.png" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 0.5em;">
+	<img src="images/diffPI.gif" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 0.5em;">
+	<p style="clear: both;">
