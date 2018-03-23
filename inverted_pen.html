@@ -9,16 +9,15 @@ subtitle: Northwestern University&#58; Winter Project
 		<li>Python (including Pyserial)</li>
     <li>Robotic Manipulation</li>
 		<li>Constrained Inverse Kinematics and Jacobians</li>
-    <li>Microduino</li>
+    <li>Microduino Sensors and Bluetooth Module</li>
     <li>LQR Control</li>
     <li>Mathematica</li>
     <li>MATLAB</li>
     <li>Solid Modeling &#58; 3D Printing</li>
 	</ul>
-	<hr />
+	<hr/>
 	<h3>Short Summary</h3>
-	<p>In the video below, Baxter begins the coffee making process by picking up the cup and placing it into the Keurig. Next, it raises the lid, picks up the K-cup, and places it inside. Finally, it closes the lid and removes the cup from the Keurig.</p>
-	<p>My contribution to the project involved programming Baxter to differentiate between the three items on the table. To do this, blue, yellow, and pink Post-it notes were placed by the cup, Keurig, and K-cup respectively. At program startup, Baxter raises its left arm (which has a camera at the end) to obtain a top-down view of the table. Using color segmentation, the centroid of each Post-it note is found in the camera frame and used to determine the relative order of the items. Next, I linked these items to their world frame equivalents (obtained from a teammate's code using AR tags) by comparing the world frame centroids and matching them to camera frame centroids accordingly.</p>
+	<p>In the video below, Sawyer moves his arm to keep the pendulum from tipping over. In the beginning, it is easy to see how the system remains stable when no external disturbance is taking place. In the second part, the pendulum shaft is pushed with another wooden dowel two times. The first time is a light push which Sawyer is able to recover from pretty well. The second time is a harder push, but Sawyer still manages to recover nicely. Finally, at the end of the video, one can see how the shaft tips over when the control output is turned off. </p>
 	<p> To learn more about the project, click <a href="https://github.com/swiz23/inverted_pendulum"target="_blank">here</a> to see the GitHub repo and access the README.</p>
 	<hr />
 
