@@ -66,12 +66,25 @@ subtitle: Northwestern University&#58; Winter Project
     <img src="images/twoModels.jpg" style="width: 100%;">
     <p>Figure 6: Sawyer Attachment &amp; Pendulum Holder</p>
   </figure>
-  <p>The three solid modeled parts were designed with OnShape and 3D printed with the help of Cura using the Ultimaker 2 Plus. The 'pendulum holder' was held in place between two pillow-block ball bearings which were screwed down into the 'Sawyer Attachment'. To prevent the holder from shearing in two (which happened in the first trial), it was printed with 100% infill density. Furthermore, screw holes were positioned in the 'pendulum holder' and the 'Microduino House' (not shown) so that the wooden dowel could be kept in place. This was done both to keep the dowel from moving and to align the Motion Sensor module in the 'Microduino House' so that its axes were aligned with Sawyer's base frame axes. Lastly, the top of the 'Microduino House' was cutout in the outline of a sphere so that the wooden ball shown in the demo video could easily rest on top of it. Besides for looking cool, the ball also shifted the center of mass of the pendulum further up (to about 84 cm along the 91 cm shaft), helping with stability.</p>
-  <h3>Short Summary</h3>
-	<p>In the video below, Sawyer moves his arm to keep the pendulum from tipping over. In the beginning, it is easy to see how the system remains stable when no external disturbance is taking place. In the second part, the pendulum shaft is pushed with another wooden dowel two times. The first time is a light push which Sawyer is able to recover from pretty well. The second time is a harder push, but Sawyer still manages to recover nicely. Finally, at the end of the video, one can see how the shaft tips over when the control output is turned off. </p>
+  <p>The three solid modeled parts were designed with OnShape and 3D printed with the help of Cura using the Ultimaker 2 Plus. The 'pendulum holder' was held in place between two pillow-block ball bearings which were screwed down into the 'Sawyer Attachment'. To prevent the holder from shearing in two (which happened in the first trial), it was printed with 100% infill density. Furthermore, screw holes were positioned in the 'pendulum holder' and the 'Microduino House' (not shown) so that the wooden dowel could be kept in place. This was done both to keep the dowel from moving and to align the Motion Sensor module in the 'Microduino House' so that its axes were aligned with Sawyer's base frame axes. Lastly, the top of the 'Microduino House' was cutout in the outline of a sphere so that the wooden ball shown in the demo video could easily rest on top of it. Besides for looking cool, the ball also shifted the center of mass of the pendulum further up (to about 84 cm along the 91 cm shaft), helping with stability.
+  </p>
+  <h3>Demo Analysis</h3>
+	<p>In the video below, Sawyer moves his arm to keep the pendulum from tipping over. In the beginning (until t \(\approx\) 50 sec in the graphs below), it is easy to see how the system remains stable when no external disturbance is taking place (the orange line in Figure 7 is the reference position of -.208 m = \(x_{des}\)). In the second part, the pendulum shaft is pushed with another wooden dowel two times (spikes in the graph at t \(\approx\) 50 sec and t \(\approx\) 75 sec). The first time is a light push which Sawyer is able to recover from pretty well. The second time is a harder push, but Sawyer still manages to recover nicely. Finally, at the end of the video, one can see how the shaft tips over when the control output is turned off (spike in pendulum angle shown in Figure 9 at t \(\approx\) 110 sec). </p>
+  <figure style="font-style: italic; float: left; width: 30%; margin-left: 1%; margin-right: 1%; margin-bottom: 0.5em;">
+    <img src="images/sawyer_pos.png" style= "width: 100%;">
+    <p>Figure 7: Sawyer's end-effector position</p>
+  </figure>
+  <figure style="font-style: italic; float: left; width: 32%; margin-bottom: 0.5em;">
+    <img src="images/sawyer_vel.png" style = "width: 100%;">
+    <p>Figure 8: Sawyer's end-effector velocity</p>
+  </figure>
+  <figure style="font-style: italic; float: left; width: 32%; margin-right: 1%; margin-left: 1%; margin-bottom: 0.5em;">
+    <img src="images/pendulum_angle.png" style= "width: 100%;">
+    <p>Figure 9: Roll/Tilt angle of the pendulum</p>
+  </figure>
 	<p> To learn more about the project, click <a href="https://github.com/swiz23/inverted_pendulum"target="_blank">here</a> to see the GitHub repo and access the README.</p>
 	<hr />
 
 	<h3>Demo Video</h3>
 	<!-- <iframe width="420" height="315" src=""></iframe> -->
-	<iframe src="https://drive.google.com/file/d/1FXJXsdRcDxJXS-Kua1aB4rFsKBY5Y83M/preview" width="1024" height="576" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+	<iframe src="https://drive.google.com/file/d/1FXJXsdRcDxJXS-Kua1aB4rFsKBY5Y83M/preview" width="1024" height="576" webkitallowfullscreen mozallowfullscreen allowfullscreen style="display: block; margin: 0 auto;"></iframe>
