@@ -1,0 +1,34 @@
+---
+layout: page
+title: Boeing Project - Part I
+subtitle: Northwestern University&#58; Final Project
+---
+	<h3>Technical Skills</h3>
+	<ul>
+    <li>3D CAD with Onshape</li>
+    <li>PCB Design with Eagle</li>
+    <li>Soldering</li>
+    <li>Wiring Design</li>
+    <li>Arduino Mega microcontroller</li>
+    <li>Ubuntu 16.04 LTS</li>
+	  <li><a href="https://www.intel.com/content/www/us/en/products/boards-kits/nuc/kits/nuc7i7bnh.html"target="_blank">Intel NUC Kit NUC7i7BNH</a></li>
+	</ul>
+	<hr />
+	<h3>Introduction</h3>
+	<p>As explained on my Project page, this robot is a programmable mecanum wheel vectoring robot. This means that by commanding the wheels to go at different velocities, it can move forward and backwards and from side to side. Each wheel is rotated by a single 285 RPM motor via a chain/sprocket setup. In turn, each pair of motors are hooked up to a <a href="https://www.superdroidrobots.com/shop/item.aspx?itemid=822"target="_blank">Sabertooth Dual 25A Motor Driver</a> which can supply each motor with up to 25A and allows for Serial communication. The Sabertooths are then hooked up to two pairs of TX and RX pins on the Arduino Mega with a <a href="https://www.superdroidrobots.com/shop/item.aspx?itemid=1514"target="_blank">Kangaroo Motion Controller</a> in between them to provide feedback control. To power the whole system, two 12V batteries are hooked up in series. On top of this 'mobile platform' (which also has a metal 'table top' with four legs that goes above the chassis), Matt will place an inverted Delta robot arm that he designed which will be used in future tests to manipulate a rigid object representing a scaled down airplane wing.</p>
+	<h3>Mechanical Structure &amp; Layout</h3>
+	<p>There were two main issues with the original structure and layout of the robot. In the left part of Figure 1, one can see that the Arduino Mega, a Hokuyo laser scanner, and an IMU are placed on the left side of the chassis top. Similarly, on the right side there are some busbars which allow the batteries and Sabertooth Drivers to be easily connected to one another. Unfortunately, the acrylic and wood pieces that the components are bolted to are not screwed onto the chassis and can easily fall off. Additionally, spacing between components is not optimized. Furthermore, in the original design, a laptop had to be placed on top of the table top (where the Delta arm would go) to control the Arduino. </p>
+  <figure style= "text-align: center; font-style: italic">
+		<img src="images/TopCoverComplete.jpg" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 0.5em;">
+		<img src="images/cad-boeing.png" style="float: left; width: 49%; margin-right: 1%; margin-bottom: 0.5em;">
+		<p>Figure 1: Original layout of components (left) &amp; Suggested layout of components (right)</p>
+	</figure>
+	<p>In the redesign of the layout (right part of Figure 1), the batteries would lie across the middle of the chassis top (although not shown, this is how it lay in the original setup as well), dividing the 'Power &amp; Control' section to the back of the robot and the 'Sensor' section to the front. In the 'Power &amp; Control' section would be the Intel NUC (replaces the laptop), the Arduino Mega, DC/DC converters, and terminal blocks. In the 'Sensor' section would be any neccessary sensors useful for navigation (such as a laser scanner or camera). Besides for keeping all components withing the confines of the chassis area and replacing the laptop, this design also focuses the majority of any wiring to the back of the robot which gives a cleaner look.</p>
+	<figure style= "text-align: center; float: right; width: 40%; margin-left: 2%; font-style: italic">
+    <img src="images/Wiring.jpg" style="width: 100%;">
+    <p>Figure 2: Sprocket &amp; Chain</p>
+  </figure>
+	<p>The second problem was that the kit came with sprockets that could only be held in place on the axle using set screws (as shown in Figure 2). As a result, it was not uncommon that the set screws would loosen over time so that the sprocket would end up free spinning around a stationary axle. Fortunately, after doing some research, my teammate (Aamir Hussain) and I found that SuperDroid had updated their robot kit since last year to include keyed a shaft/sprocket setup which essentially eliminates this issue. Needless to say, we purchased the updated parts.</p>
+	<p style="clear: both;">
+	<!-- <h3>Electrical Design &amp; Safety Measures</h3>
+	<h3>Hardware</h3> -->
