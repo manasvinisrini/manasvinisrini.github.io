@@ -16,6 +16,13 @@ subtitle: Northwestern University&#58; MSR Final Project
         <li>Python &amp; C/C++</li>
 	  <li>Setting up the <a href="https://www.intel.com/content/www/us/en/products/boards-kits/nuc/kits/nuc7i7bnh.html"target="_blank">Intel NUC Kit NUC7i7BNH</a></li>
 	</ul>
-	<!-- <hr /> -->
-    <!-- <h3>Introduction</h3>
-    <p></p> -->
+	<hr />
+    <h3>Introduction</h3>
+    <p>As mentioned on the Project page, this quarter brought forth some major changes, even some updates to the design proposed last quarter! For that reason, this post will attempt to describe the new build process of the Omni robot from the ground up, possibly overlapping from the last post but making up for it by explaining things in a sequential, easy to understand manner. That said, the goal of the project remained the same - to build and program three mobile platforms such that they are able to move as one rigid body. This is imperative as each platform will be carrying an inverted robotic delta arm (designed by Matthew Elwin and William Hunt) which in turn will be supporting part of a large rigid object. Without the platforms moving as one entity (i.e. in a formation), it will not be possible for the delta arms to maintain their hold on the rigid object. This is also why it is vital that the odometry calculated by each robot is as accurate as possible - to minimize drift that could ruin the formation. To accomplish this, there were five main tasks that were involved:</p>
+    <ul>
+        <li>Wiring &amp; PCB Design</li>
+        <li>Programming the Tiva microcontrollers</li>
+        <li>Physical Design &amp; Placement of Sensors</li>
+        <li>Control of a Single Robot including Odometry Calculation &amp; Verification along with Sensor Fusion</li>
+        <li>Formation Control of all Three Robots</li>
+    </ul>
