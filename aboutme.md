@@ -4,13 +4,9 @@ title: About me
 subtitle: Why you'd want to go on a date with me
 ---
 
-Hi. I'm Manasvini. But you can call me Manas. 
+Hi! I’m Manasvini, but you can call me Manas.
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+I’m a graduate student in Robotics and Autonomous Systems at Boston University, focusing on robotic perception and motion planning.
+I design systems for robots to perceive their surroundings and perform tasks with precision. 
 
-What else do you need?
 
-### My story
-
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
