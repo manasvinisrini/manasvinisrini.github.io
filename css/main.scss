@@ -1441,7 +1441,7 @@ $baseurl: '{{ site.baseurl }}/images';
 
 							&:after {
 								background-image: url('images/bars.svg');
-								background-position: center center;
+								background-position: center 60%;
 								background-repeat: no-repeat;
 								content: '';
 								display: inline-block;
