@@ -38,11 +38,11 @@
 // Palette.
 	$palette: (
 		// Background and Text
-		bg: #8f34a1,          // Main background color
+		bg: #54365a,          // Main background color
 		fg: #e0e0e0,          // Main text color
 		fg-bold: #ffffff,     // Bold text color
 		fg-light: rgba(224,224,224,0.6), // Light text color
-		border: #2e2e4f,      // Border color
+		border: #661e66,      // Border color
 		border-bg: rgba(46,46,79,0.25),  // Border background color
 		border2: #3e3e5f,     // Secondary border color
 		border2-bg: rgba(62,62,95,0.5),  // Secondary border background
@@ -73,7 +73,7 @@
 
 		// Accent 3: Blue
 		accent3: (
-			bg: #3498db,
+			bg: #db3495,
 			fg-bold: #ffffff,
 			fg: mix(#3498db, #ffffff, 25%),
 			fg-light: mix(#3498db, #ffffff, 40%),
