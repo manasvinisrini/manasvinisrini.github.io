@@ -6,9 +6,9 @@ title: Manasvini Srinivasan
 description:  |
   Master of Science in Robotics  
   Boston University 
-owner: Manasvini Srinivsan # or company name
+owner: Manasvini Srinivasan # or company name
 first_published: 2017 # if migrating another site, the year of your first publish
-email: solomonwiznitzer2018@u.northwestern.edu
+email: msrini@bu.edu
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://manasvini.srini.github.io" # the base hostname & protocol for your site
 social:
@@ -54,5 +54,7 @@ social:
 
 # Build settings
 markdown: kramdown
-#sass:
-#  style: compressed
+sass:
+  sass_dir: _sass
+  style: compressed
+
