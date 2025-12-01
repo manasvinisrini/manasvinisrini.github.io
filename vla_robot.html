@@ -46,7 +46,19 @@ subtitle: Endox AI&#58; Robotics Software Engineer
 	
 	<h4>3. Hardware Layer - UR5e Robotic Arm</h4>
 	<p>The Universal Robots UR5e collaborative robot arm served as the physical platform for executing the generated motion plans. Its 6 degrees of freedom and high repeatability made it ideal for precision manipulation tasks.</p>
+    <h4>End-Effector & Perception Hardware</h4>
 
+    <div style="margin: 30px 0;">
+        <figure style="display: inline-block; width: 48%; margin-right: 2%; text-align: center; font-style: italic; vertical-align: top;">
+            <img src="images/onrobot.jpeg" style="width: 100%;">
+            <p>OnRobot gripper mounted on UR5e end-effector</p>
+        </figure>
+        
+        <figure style="display: inline-block; width: 48%; text-align: center; font-style: italic; vertical-align: top;">
+            <img src="images/gopro.jpeg" style="width: 100%;">
+            <p>GoPro camera for visual perception and object detection</p>
+        </figure>
+    </div>
 	<h3>Technical Challenges & Solutions</h3>
 	
 	<h4>Singularity Handling</h4>
@@ -118,13 +130,26 @@ subtitle: Endox AI&#58; Robotics Software Engineer
 		<li>Robust handling of edge cases and error conditions</li>
 	</ul>
 	
-	<p>This work laid the foundation for more advanced autonomous manipulation capabilities and demonstrated the viability of VLA models in real-world robotic applications. 🤖</p>
+	<h3>Demo Videos</h3>
 
-	<h3>Future Directions</h3>
-	<p>Potential extensions of this work include:</p>
-	<ul>
-		<li>Multi-modal perception integration (tactile, force feedback)</li>
-		<li>Dynamic obstacle avoidance and replanning</li>
-		<li>Learning from demonstration to improve task performance</li>
-		<li>Multi-robot coordination for collaborative tasks</li>
-	</ul>
+    <h4>Demo 1: Natural Language Command Execution with NVIDIA GROOT</h4>
+    <p>Watch the NVIDIA GROOT VLA model interpret the natural language command "move towards the bottle" and execute precise motion planning to approach the target object in real-time. The system demonstrates seamless integration between language understanding, visual perception, and robotic control.</p>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <iframe width="80%" height="450" 
+                src="https://www.youtube.com/embed/37MXDcYCW1k" 
+                frameborder="0" 
+                allowfullscreen>
+        </iframe>
+    </div>
+
+    <h4>Demo 2: Precision End-Effector Control</h4>
+    <p>The UR5e robotic arm executing precise motion control based on commanded end-effector poses. This demonstration shows the robot moving through specified positions (x, y, z) and orientations (roll, pitch, yaw) with high accuracy, showcasing the calibrated coordinate frames and optimized trajectory planning implemented in the control system.</p>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <iframe width="80%" height="450" 
+                src="https://www.youtube.com/embed/i4SQzR9UndY" 
+                frameborder="0" 
+                allowfullscreen>
+        </iframe>
+    </div>
