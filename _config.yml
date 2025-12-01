@@ -8,7 +8,7 @@ description:  |
   Boston University 
 owner: Manasvini Srinivasan # or company name
 first_published: 2017 # if migrating another site, the year of your first publish
-email: msrini@bu.edu
+email: msrini.suj@gmail.com
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://manasvini.srini.github.io" # the base hostname & protocol for your site
 social:
@@ -17,7 +17,7 @@ social:
   linkedin-square: https://linkedin.com/in/manasvini-srinivasan
   # facebook-official: https://facebook.com/<username>
   # google-plus-square: https://plus.google.com/u/0/+<username>
-  email: mailto:msrini@bu.edu
+  email: mailto:msrini.suj@gmail.com
   #flickr:
   #instagram:
   #youtube-square:
