@@ -1,0 +1,149 @@
+---
+layout: page
+title: Multi-Target Space Debris Removal with APF-MPC
+subtitle: Boston University&#58; Motion Planning and Controls
+---
+	
+	<h3>Project Overview</h3>
+	<p>This project addresses the growing challenge of space debris removal through an innovative algorithmic approach that combines Artificial Potential Fields (APF) with Model Predictive Control (MPC). The system autonomously navigates through a static debris field to rendezvous with multiple large target debris objects in a single trip, optimizing for fuel efficiency and trajectory smoothness while avoiding collisions with non-target debris.</p>
+
+	<figure style="text-align: center; font-style: italic; margin: 30px 0;">
+		<img src="images/APF_all_targets.jpg" style="width: 80%;">
+		<p>Complete APF-based trajectory visiting all target debris (blue dots) while avoiding obstacles (gray spheres)</p>
+	</figure>
+
+	<h3>Problem Statement</h3>
+	<p>Space debris poses an escalating threat to current and future space missions, with over 29,000 tracked pieces larger than 10 cm as of 2023. The Kessler Syndrome—where increasing debris triggers cascading collisions—threatens to render orbital space inaccessible. Active debris removal is critical, but current approaches face significant challenges:</p>
+	<ul>
+		<li>High computational cost for multi-target missions</li>
+		<li>Thruster saturation limiting spacecraft maneuverability</li>
+		<li>Inefficient fuel consumption in complex debris fields</li>
+		<li>Risk of collision with non-target debris during approach</li>
+		<li>Lack of integrated global path planning with local trajectory optimization</li>
+	</ul>
+
+	<h3>Proposed Solution: Integrated APF-MPC Algorithm</h3>
+	<p>Our hybrid approach combines three key components to achieve efficient multi-target debris removal:</p>
+
+	<h4>1. Polygonal Queue Ordering Algorithm</h4>
+	<p>Developed a novel algorithm to determine the optimal sequence for visiting multiple target debris. The approach:</p>
+	<ul>
+		<li>Identifies min/max target positions along the x-axis</li>
+		<li>Divides targets into two groups based on a line between extrema</li>
+		<li>Sorts targets to create a closed-loop polygonal path</li>
+		<li>Ensures path segments never cross, minimizing fuel consumption</li>
+		<li>Guarantees return to starting dock after collecting all targets</li>
+	</ul>
+	<p>This ordering strategy is robust to randomized target locations and scales efficiently with the number of targets, providing a foundation for optimal mission planning.</p>
+
+	<h4>2. Artificial Potential Field (APF) Path Planning</h4>
+	<p>APF provides global trajectory planning by modeling the environment as a potential field:</p>
+	<ul>
+		<li><strong>Attractive Forces:</strong> Target debris generate attractive quadratic potentials that guide the spacecraft toward collection points</li>
+		<li><strong>Repulsive Forces:</strong> Non-target debris create repulsive potentials that steer the spacecraft away from collisions</li>
+		<li><strong>Gradient Descent Navigation:</strong> The spacecraft moves along the steepest descent of the combined potential field</li>
+		<li><strong>Real-time Adaptability:</strong> Can operate without complete environmental knowledge or predefined obstacle shapes</li>
+	</ul>
+
+	<figure style="text-align: center; font-style: italic; margin: 30px 0;">
+		<img src="images/potential_planner_path.jpg" style="width: 70%;">
+		<p>Baseline APF trajectory showing oscillations and suboptimal smoothness</p>
+	</figure>
+
+	<h4>3. Model Predictive Control (MPC) Trajectory Optimization</h4>
+	<p>MPC refines the APF-generated trajectory through predictive optimization:</p>
+	<ul>
+		<li><strong>Non-linear Kinematic Model:</strong> Predicts spacecraft state based on position, velocity, and control inputs</li>
+		<li><strong>Cost Function Minimization:</strong> Balances tracking error, control effort, and trajectory smoothness</li>
+		<li><strong>Receding Horizon Control:</strong> Iteratively optimizes over a prediction horizon of 20 steps</li>
+		<li><strong>Constraint Handling:</strong> Addresses thruster saturation and velocity limits</li>
+		<li><strong>Real-time Adaptation:</strong> Continuously updates control actions based on current system state</li>
+	</ul>
+
+	<figure style="text-align: center; font-style: italic; margin: 30px 0;">
+		<img src="images/refined_w_mpc.jpg" style="width: 80%;">
+		<p>APF-MPC refined trajectory demonstrating smooth, fuel-efficient motion with significantly more waypoints</p>
+	</figure>
+
+	<h3>Algorithm Integration & Implementation</h3>
+	<p>The complete system operates through the following workflow:</p>
+	<ol>
+		<li><strong>Target Identification:</strong> Identify locations of large target debris for collection</li>
+		<li><strong>Queue Optimization:</strong> Apply polygonal ordering algorithm to determine optimal collection sequence</li>
+		<li><strong>Global Path Planning:</strong> Generate initial trajectory using APF between each target pair</li>
+		<li><strong>Local Trajectory Refinement:</strong> Apply MPC to optimize each path segment</li>
+		<li><strong>Execution:</strong> Implement first control action and iterate through receding horizon</li>
+	</ol>
+
+	<p>The system was implemented in MATLAB, leveraging its optimization toolbox for MPC computation and dynamic system modeling capabilities. The modular design allows for easy adaptation to different space environments and mission constraints.</p>
+
+	<h3>Performance Results</h3>
+	<p>The integrated APF-MPC algorithm demonstrated significant performance improvements over baseline methods:</p>
+
+	<h4>Comparison with Baseline APF</h4>
+	<ul>
+		<li><strong>Path Length Reduction:</strong> 87.5% shorter trajectory (841.78m → 105.19m)</li>
+		<li><strong>Fuel Efficiency:</strong> 97.1% reduction in fuel consumption (2367.9 → 69.5 units)</li>
+		<li><strong>Trajectory Smoothness:</strong> 99.99% improvement in smoothness metric</li>
+		<li><strong>Acceleration Control:</strong> 94% reduction in maximum acceleration (361.16 → 21.82 m/s²)</li>
+		<li><strong>Waypoint Density:</strong> 41,895× increase in trajectory resolution (2 → 83,790 waypoints)</li>
+	</ul>
+
+	<h4>Comparison with A* Algorithm</h4>
+	<figure style="text-align: center; font-style: italic; margin: 30px 0;">
+		<img src="images/A_.jpg" style="width: 70%;">
+		<p>A* algorithm trajectory with grid-based discretization (0.16 seconds runtime)</p>
+	</figure>
+
+	<p>While A* achieved faster computation time (0.16s vs 0.34s for APF), our APF-MPC approach offers critical advantages for space applications:</p>
+	<ul>
+		<li><strong>Obstacle Prioritization:</strong> Greater emphasis on collision avoidance, crucial for irreversible space operations</li>
+		<li><strong>Unknown Environments:</strong> Can operate without complete environmental knowledge or predefined obstacle shapes</li>
+		<li><strong>Trajectory Quality:</strong> Produces smoother, more fuel-efficient paths suitable for thruster-limited spacecraft</li>
+		<li><strong>Adaptability:</strong> Better handles irregular debris shapes that challenge grid-based planners</li>
+	</ul>
+
+	<figure style="text-align: center; font-style: italic; margin: 30px 0;">
+		<img src="images/comparison.jpg" style="width: 80%;">
+		<p>Execution time comparison: Base APF (red) vs A* algorithm (blue) across path segments</p>
+	</figure>
+
+	<h3>Key Technical Innovations</h3>
+	
+	<h4>Thruster Saturation Management</h4>
+	<p>The MPC framework explicitly handles thruster saturation constraints, a critical consideration for spacecraft with limited propulsion capability. By incorporating maximum acceleration and deceleration limits into the optimization problem, the algorithm ensures all commanded maneuvers are physically realizable.</p>
+
+	<h4>Multi-Target Single-Trip Optimization</h4>
+	<p>To our knowledge, this is the first implementation of single-trip multiple space debris collection. Previous research focused on either single-target missions or did not optimize the collection sequence. Our polygonal ordering algorithm ensures minimal fuel consumption across the complete mission.</p>
+
+	<h4>Computational Efficiency</h4>
+	<p>While the APF-MPC refinement introduces computational overhead (8,379 seconds for full trajectory vs 0.34 seconds for baseline APF), this represents offline planning that occurs prior to mission execution. The actual spacecraft follows the pre-computed optimal trajectory, making the approach suitable for long-duration space missions spanning multiple days.</p>
+
+	<h3>Applications & Impact</h3>
+	<p>This research contributes to the critical challenge of maintaining safe orbital environments:</p>
+	<ul>
+		<li><strong>Active Debris Removal:</strong> Enables efficient multi-target collection missions to remove high-risk debris</li>
+		<li><strong>Collision Mitigation:</strong> Reduces risk of cascading collision events (Kessler Syndrome)</li>
+		<li><strong>Fuel Optimization:</strong> Minimizes propellant requirements, enabling longer missions or smaller spacecraft</li>
+		<li><strong>Mission Planning:</strong> Provides framework for planning complex multi-target orbital operations</li>
+		<li><strong>Future Scalability:</strong> Algorithm generalizes to arbitrary numbers of targets and obstacle configurations</li>
+	</ul>
+
+	<h3>Project Resources</h3>
+	<ul>
+		<li><strong>Research Paper:</strong> <a href="papers/MPC_project_paper.pdf" target="_blank">Full Technical Paper (PDF)</a></li>
+		<li><strong>Source Code:</strong> <a href="https://github.com/manasvinisrini/MultiDebris-Rendezvous-System" target="_blank">GitHub Repository</a></li>
+	</ul>
+
+	<h3>Future Directions</h3>
+	<p>This work establishes a foundation for more advanced debris removal capabilities:</p>
+	<ul>
+		<li><strong>Dynamic Obstacles:</strong> Extend MPC framework to handle moving debris with real-time replanning</li>
+		<li><strong>Orbital Dynamics:</strong> Incorporate gravitational effects and orbital mechanics into trajectory planning</li>
+		<li><strong>Multi-Spacecraft Coordination:</strong> Develop distributed algorithms for cooperative debris removal</li>
+		<li><strong>Uncertainty Handling:</strong> Integrate sensor noise and state estimation for robust autonomous operation</li>
+		<li><strong>Hamiltonian Optimization:</strong> Improve queue ordering with true shortest-path solutions</li>
+	</ul>
+
+	<h3>Conclusion</h3>
+	<p>The integrated APF-MPC algorithm successfully demonstrates a proof-of-concept solution for efficient multi-target space debris removal. By combining global path planning with local trajectory optimization, the system achieves dramatic improvements in fuel efficiency and trajectory quality compared to baseline methods. This research contributes to the ongoing effort to maintain sustainable access to orbital space in the face of growing debris populations.</p>
