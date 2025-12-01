@@ -1,0 +1,130 @@
+---
+layout: page
+title: Vision-Language-Action Model Integration
+subtitle: Endox AI&#58; Robotics Software Engineer
+---
+	<h3>Technical Skills</h3>
+	<ul>
+		<li>Vision-Language-Action (VLA) Models</li>
+		<li>Robot Operating System (ROS)</li>
+		<li>URScript Programming</li>
+		<li>NVIDIA Jetson Orin</li>
+		<li>Real-time Motion Control</li>
+		<li>Computer Vision</li>
+		<li>Coordinate Frame Calibration</li>
+		<li>Trajectory Planning & Optimization</li>
+		<li>Python & C++</li>
+	</ul>
+	<hr />
+	
+	<h3>Overview</h3>
+	<p>At Endox AI, I worked on integrating  Vision-Language-Action (VLA) models with industrial robotic systems to enable natural language control of robotic manipulation tasks. This project involved developing a complete perception and control pipeline that translates human language commands into precise robotic motions.</p>
+	
+	<h3>Project Goals</h3>
+	<p>The primary objective was to create an autonomous robotic system capable of understanding and executing natural language commands in real-time. This required:</p>
+	<ul>
+		<li>Seamless integration between AI models and robotic hardware</li>
+		<li>Real-time performance optimization for industrial applications</li>
+		<li>Robust handling of edge cases and singularities</li>
+		<li>High precision in end-effector positioning and trajectory execution</li>
+	</ul>
+
+	<h3>System Architecture</h3>
+	<p>The system consisted of three main components working in concert:</p>
+	
+	<h4>1. Perception Layer - VLA Model</h4>
+	<p>The Vision-Language-Action model serves as the brain of the system, processing natural language commands and visual input to generate motion plans. The model was deployed on an NVIDIA Jetson Orin platform, which provided the computational power necessary for real-time inference while maintaining a compact form factor suitable for robotic applications.</p>
+	
+	<h4>2. Control Layer - ROS + URScript</h4>
+	<p>The control layer bridges the gap between high-level motion plans and low-level robot control. Using ROS (Robot Operating System) for communication and URScript for direct robot control, this layer handles:</p>
+	<ul>
+		<li>Motion plan validation and safety checks</li>
+		<li>Real-time trajectory execution</li>
+		<li>Singularity avoidance and workspace boundary detection</li>
+		<li>Timing synchronization between perception and actuation</li>
+	</ul>
+	
+	<h4>3. Hardware Layer - UR5e Robotic Arm</h4>
+	<p>The Universal Robots UR5e collaborative robot arm served as the physical platform for executing the generated motion plans. Its 6 degrees of freedom and high repeatability made it ideal for precision manipulation tasks.</p>
+
+	<h3>Technical Challenges & Solutions</h3>
+	
+	<h4>Singularity Handling</h4>
+	<p>Robotic singularities occur when the robot's joints align in specific configurations, causing loss of controllability. I implemented several strategies to detect and avoid these configurations:</p>
+	<ul>
+		<li>Real-time Jacobian monitoring to detect approaching singularities</li>
+		<li>Alternative path planning when singularities were detected</li>
+		<li>Graceful degradation strategies for unavoidable near-singular poses</li>
+	</ul>
+	
+	<h4>Workspace Edge Cases</h4>
+	<p>The robot's workspace has natural boundaries where motion becomes constrained or impossible. To handle these edge cases, I developed:</p>
+	<ul>
+		<li>Predictive workspace boundary checking before motion execution</li>
+		<li>Safe recovery procedures when approaching workspace limits</li>
+		<li>User feedback mechanisms to indicate workspace violations</li>
+	</ul>
+	
+	<h4>Timing & Synchronization</h4>
+	<p>Real-time robotic systems require precise timing coordination between perception, planning, and control. Key optimizations included:</p>
+	<ul>
+		<li>Asynchronous processing pipelines to minimize latency</li>
+		<li>Predictive trajectory buffering to ensure smooth motion</li>
+		<li>Dynamic rate adjustment based on system load</li>
+	</ul>
+
+	<h3>Calibration & Precision</h3>
+	<p>Achieving high-precision manipulation required meticulous calibration of multiple coordinate frames:</p>
+	
+	<h4>Coordinate Frame Calibration</h4>
+	<ul>
+		<li><strong>Camera-to-Base Calibration:</strong> Established accurate transformation between the camera coordinate frame and the robot base frame using checkerboard calibration and hand-eye calibration techniques</li>
+		<li><strong>Tool Center Point (TCP) Calibration:</strong> Precisely defined the end-effector's tool center point to ensure accurate positioning</li>
+		<li><strong>Workspace Calibration:</strong> Mapped the operational workspace and validated reachability</li>
+	</ul>
+	
+	<h4>Trajectory Tuning</h4>
+	<p>To improve motion quality and task success rates, I iteratively refined trajectory parameters:</p>
+	<ul>
+		<li>Velocity and acceleration profiles optimized for smooth motion</li>
+		<li>Path blending parameters adjusted for continuous motion</li>
+		<li>End-effector orientation constraints for task-specific requirements</li>
+	</ul>
+
+	<h3>Performance Optimization</h3>
+	
+	<h4>NVIDIA Jetson Orin Deployment</h4>
+	<p>Deploying the VLA model on the Jetson Orin required significant optimization to achieve real-time performance:</p>
+    <figure style="text-align: center; font-style: italic; margin: 30px 0;">
+    <img src="images/jetson.jpeg" style="width: 70%;">
+    <p>NVIDIA Jetson Orin integrated with the UR5e robotic system</p></figure>
+    <figure style="text-align: center; font-style: italic; margin: 30px 0;">
+    <img src="images/jetson-screen.jpeg" style="width: 70%;">
+    <p>NVIDIA Jetson screen</p></figure>
+	<ul>
+		<li><strong>Model Optimization:</strong> Applied TensorRT optimization to reduce inference latency by 40%</li>
+		<li><strong>Memory Management:</strong> Implemented efficient memory allocation strategies to handle continuous video streams</li>
+	</ul>
+	
+	<h4>Inference Latency</h4>
+	<p>Achieved end-to-end latency of under 200ms from command input to motion initiation, enabling responsive and natural human-robot interaction.</p>
+
+	<h3>Results & Impact</h3>
+	<p>The integrated system successfully demonstrated:</p>
+	<ul>
+		<li>Reliable natural language command understanding and execution</li>
+		<li>Real-time performance suitable for interactive applications</li>
+		<li>High precision in task execution with sub-millimeter accuracy</li>
+		<li>Robust handling of edge cases and error conditions</li>
+	</ul>
+	
+	<p>This work laid the foundation for more advanced autonomous manipulation capabilities and demonstrated the viability of VLA models in real-world robotic applications. 🤖</p>
+
+	<h3>Future Directions</h3>
+	<p>Potential extensions of this work include:</p>
+	<ul>
+		<li>Multi-modal perception integration (tactile, force feedback)</li>
+		<li>Dynamic obstacle avoidance and replanning</li>
+		<li>Learning from demonstration to improve task performance</li>
+		<li>Multi-robot coordination for collaborative tasks</li>
+	</ul>
