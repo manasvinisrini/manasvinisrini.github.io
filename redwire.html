@@ -1,0 +1,156 @@
+---
+layout: page
+title: Autonomous CubeSat Grasping System
+subtitle: Redwire Space&#58; Software and Robotics Intern
+---
+	
+	<h3>Project Overview</h3>
+	<p>At Redwire Space, I developed an autonomous robotic grasping system for CubeSat manipulation using a UR5 robotic arm. The project focused on creating a complete ROS-based pipeline that could detect, track, and grasp a CubeSat model using visual servoing and motion planning techniques. This work directly supports future on-orbit satellite servicing and assembly missions where precise autonomous manipulation is critical.</p>
+	<h3>Laboratory Setup</h3>
+
+    <div style="margin: 30px 0;">
+        <figure style="display: inline-block; width: 48%; margin-right: 2%; text-align: center; font-style: italic; vertical-align: top;">
+            <img src="images/lab.jpg" style="width: 100%;">
+            <p>Redwire Space robotics laboratory with UR5 manipulator systems</p>
+        </figure>
+        
+        <figure style="display: inline-block; width: 48%; text-align: center; font-style: italic; vertical-align: top;">
+            <img src="images/lab2.jpg" style="width: 100%;">
+            <p>Complete workspace setup with control station and safety barriers</p>
+        </figure>
+    </div>
+	<h3>System Architecture</h3>
+	<p>The system integrated multiple components to achieve reliable autonomous grasping:</p>
+	
+	<h4>1. Perception System - Intel RealSense L515</h4>
+	<p>The Intel RealSense L515 LiDAR camera served as the primary sensor, providing both RGB imagery and high-precision depth data. The camera's LiDAR technology enabled accurate 3D perception even in challenging lighting conditions, making it ideal for space-like environments where consistent lighting cannot be guaranteed.</p>
+	
+	<h4>2. Fiducial Tracking - ArUco Markers</h4>
+	<p>ArUco markers were strategically placed on the CubeSat model to provide robust pose estimation. These computer vision markers allowed the system to:</p>
+    <figure style="text-align: center; font-style: italic; margin: 30px 0;">
+    <img src="images/aruco.jpg" style="width: 40%;">
+    <p>ArUco fiducial marker used for CubeSat pose estimation</p>
+    </figure>
+
+	<ul>
+		<li>Accurately determine the CubeSat's 6-DOF pose (position and orientation)</li>
+		<li>Track the target in real-time with sub-millimeter precision</li>
+		<li>Maintain tracking even during partial occlusions</li>
+		<li>Provide consistent reference frames for motion planning</li>
+	</ul>
+	
+	<h4>3. Motion Planning - MoveIt & UR5</h4>
+	<p>The Universal Robots UR5 arm executed the grasping maneuvers using MoveIt for motion planning. The system leveraged collision-aware planning to ensure safe trajectories while optimizing for smooth, efficient motion paths.</p>
+    <figure style="text-align: center; font-style: italic; margin: 30px 0;">
+    <img src="images/cubesat.jpeg" style="width: 70%;">
+    <p>Realsense L515 and the Cubesat</p>
+    </figure>
+
+	<h3>ROS Pipeline Development</h3>
+	<p>I built a comprehensive ROS-based pipeline that seamlessly integrated vision, planning, and control:</p>
+	
+	<h4>Vision Pipeline</h4>
+	<ul>
+		<li><strong>Point Cloud Acquisition:</strong> Captured and processed point clouds from the RealSense L515 for 3D scene understanding</li>
+		<li><strong>ArUco Detection:</strong> Implemented real-time marker detection and pose estimation using OpenCV</li>
+		<li><strong>Pose Filtering:</strong> Applied temporal filtering to smooth noisy pose estimates</li>
+		<li><strong>Transform Broadcasting:</strong> Published detected poses to the ROS TF tree for unified coordinate frame management</li>
+	</ul>
+	
+	<h4>Planning Pipeline</h4>
+	<ul>
+		<li><strong>URDF/SRDF Configuration:</strong> Developed robot description files defining the UR5's kinematic structure and planning groups</li>
+		<li><strong>MoveIt Integration:</strong> Configured motion planners (OMPL) with appropriate planning algorithms for the workspace</li>
+		<li><strong>Collision Checking:</strong> Set up collision primitives to prevent contact with the environment and CubeSat during approach</li>
+		<li><strong>Grasp Planning:</strong> Implemented grasp pose computation based on detected CubeSat orientation</li>
+	</ul>
+	
+	<h4>Control Pipeline</h4>
+	<ul>
+		<li><strong>Real-time Control:</strong> Integrated hardware controllers for smooth trajectory execution</li>
+		<li><strong>Gripper Control:</strong> Developed gripper actuation sequences for reliable grasping</li>
+		<li><strong>Feedback Loops:</strong> Implemented visual servoing to correct for tracking errors during motion</li>
+	</ul>
+
+	<h3>Technical Challenges & Solutions</h3>
+	
+	<h4>Grasping Failure Debugging</h4>
+	<p>Initial grasping attempts revealed several failure modes that required systematic debugging:</p>
+	<ul>
+		<li><strong>Approach Angle Issues:</strong> The gripper sometimes approached at suboptimal angles, causing collisions or failed grasps. I refined the grasp pose generation to account for the CubeSat's geometry and ensure perpendicular approach vectors.</li>
+		<li><strong>Timing Problems:</strong> Gripper closure timing was sometimes premature or delayed. I implemented state machine logic to synchronize gripper actuation with arm position feedback.</li>
+		<li><strong>Force Control:</strong> Over-gripping could damage the CubeSat while under-gripping caused drops. I tuned gripper force parameters to achieve reliable yet gentle grasping.</li>
+	</ul>
+	
+	<h4>Transform Drift Correction</h4>
+	<p>One of the most challenging issues was transform drift between coordinate frames, which accumulated over time and degraded accuracy:</p>
+	<ul>
+		<li><strong>Root Cause Analysis:</strong> Identified that slight inconsistencies in camera calibration and mounting led to compounding errors in the transform tree</li>
+		<li><strong>Calibration Refinement:</strong> Performed hand-eye calibration to establish precise camera-to-robot transforms</li>
+		<li><strong>Dynamic Correction:</strong> Implemented periodic re-calibration using fiducial markers at known locations</li>
+		<li><strong>Validation:</strong> Achieved transform accuracy within 2mm position error and 1° orientation error</li>
+	</ul>
+	
+	
+
+	<h4>Real-world Manipulation Constraints</h4>
+	<p>The demonstrations incorporated constraints representative of actual space operations:</p>
+	<ul>
+		<li><strong>Limited Workspace:</strong> Restricted the robot's operating volume to simulate spacecraft interior constraints</li>
+		<li><strong>Collision Avoidance:</strong> Added virtual obstacles representing spacecraft structure</li>
+		<li><strong>Velocity Limits:</strong> Constrained motion speeds to prevent aggressive maneuvers</li>
+		<li><strong>Approach Corridors:</strong> Defined safe approach zones for the end-effector</li>
+	</ul>
+	
+	<h4>Dynamic Trajectory Generation</h4>
+	<p>Rather than using pre-programmed paths, the system generated trajectories dynamically based on real-time perception:</p>
+	<ul>
+		<li>Continuously updated target pose from vision system</li>
+		<li>Replanned trajectories when obstacles were detected</li>
+		<li>Adapted grasp strategies based on CubeSat orientation</li>
+		<li>Maintained smooth motion despite changing conditions</li>
+	</ul>
+
+	<h3>Performance & Results</h3>
+	<p>The developed system achieved robust autonomous grasping capabilities:</p>
+	<ul>
+		<li><strong>Success Rate:</strong> >95% grasp success rate for static targets</li>
+		<li><strong>Accuracy:</strong> Grasp pose accuracy within ±2mm position, ±1° orientation</li>
+		<li><strong>Speed:</strong> Complete grasp cycle (detect → plan → grasp) in under 15 seconds</li>
+		<li><strong>Adaptability:</strong> Successfully handled CubeSat poses across full workspace</li>
+    <h3>Team & Workspace</h3>
+
+    <div style="margin: 30px 0;">
+        <figure style="display: inline-block; width: 48%; margin-right: 2%; text-align: center; font-style: italic; vertical-align: top;">
+            <img src="images/me.jpg" style="width: 100%;">
+            <p>Team collaboration session at Redwire Space</p>
+        </figure>
+        
+        <figure style="display: inline-block; width: 48%; text-align: center; font-style: italic; vertical-align: top;">
+            <img src="images/me2.jpg" style="width: 100%;">
+            <p>Working on motion planning pipeline development</p>
+        </figure>
+    </div>
+    <h3>Demo Videos</h3>
+
+    <h4>Demo 1: Autonomous CubeSat Grasping</h4>
+    <p>Watch the UR5 robotic arm autonomously detect and approach the CubeSat using ArUco marker-based pose estimation and MoveIt motion planning.</p>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <iframe width="80%" height="450" 
+                src="https://www.youtube.com/embed/KLtCUN76rDw" 
+                frameborder="0" 
+                allowfullscreen>
+        </iframe>
+    </div>
+
+    <h4>Demo 2: Behind the Scenes - Pipeline Development</h4>
+    <p>Debugging transform trees, tuning motion planners, and refining the ROS pipeline for robust autonomous manipulation.</p>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <iframe width="80%" height="450" 
+                src="https://www.youtube.com/embed/AZGNQZZPHZg" 
+                frameborder="0" 
+                allowfullscreen>
+        </iframe>
+    </div>
